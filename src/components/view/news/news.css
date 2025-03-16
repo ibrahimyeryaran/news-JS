@@ -137,7 +137,6 @@
     }
 
     .news__item .news__description:before {
-        -webkit-transform: skewX(-3deg);
         transform: skewX(-3deg);
         content: '';
         background: #fff;
@@ -156,7 +155,6 @@
     .news__item.alt .news__description:before {
         left: inherit;
         right: -10px;
-        -webkit-transform: skew(3deg);
         transform: skew(3deg);
     }
 
