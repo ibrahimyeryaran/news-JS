@@ -1,5 +1,19 @@
 import AppLoader from './appLoader';
 
+export interface NewsItem {
+    source: { name: string };
+    author?: string;
+    title: string;
+    description: string;
+    url: string;
+    urlToImage?: string;
+    publishedAt: string;
+}
+
+export interface Source {
+    id: string;
+    name: string;
+}
 
 export type NewsResponseType = {
     articles: ReadonlyArray<NewsItem>;
@@ -61,7 +75,7 @@ export default class AppController extends AppLoader {
                         ? endpointAttr as Endpoints
                         : Endpoints.Everything;
 
-                    this.getResp<NewsResponse>({ endpoint, options }, callback);
+                    this.getResp<NewsResponseType>({ endpoint, options }, callback);
                 }
                 return;
             }
