@@ -56,7 +56,7 @@ export default class AppController extends AppLoader {
                     if (country) options.country = country;
                     if (category) options.category = category;
 
-                    // endpointAttr string döndüğü için enum'a açıkça eşleştiriyoruz (as kullanmadan)
+                  
                     const endpoint = Object.values(Endpoints).includes(endpointAttr as Endpoints)
                         ? endpointAttr as Endpoints
                         : Endpoints.Everything;
