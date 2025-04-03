@@ -1,12 +1,12 @@
 import './sources.css';
 
-export interface Source {
+export interface SourceType {
     id: string;
     name: string;
 }
 
 export default class Sources {
-    public draw(data: ReadonlyArray<Source>): void {
+    public draw(data: ReadonlyArray<SourceType>): void {
         const fragment = document.createDocumentFragment();
         const sourceItemTemp = document.querySelector<HTMLTemplateElement>('#sourceItemTemp');
 
