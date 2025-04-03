@@ -1,6 +1,20 @@
 import News from './news/news';
 import Sources from './sources/sources';
 
+export interface NewsItem {
+    source: { name: string };
+    author?: string;
+    title: string;
+    description: string;
+    url: string;
+    urlToImage?: string;
+    publishedAt: string;
+}
+
+export interface Source {
+    id: string;
+    name: string;
+}
 
 export type NewsResponseType = {
     articles: ReadonlyArray<NewsItem>;
