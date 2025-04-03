@@ -1,5 +1,9 @@
-import { Source } from '../../../types';
 import './sources.css';
+
+export interface Source {
+    id: string;
+    name: string;
+}
 
 export default class Sources {
     public draw(data: ReadonlyArray<Source>): void {
