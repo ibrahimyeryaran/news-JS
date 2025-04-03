@@ -8,15 +8,17 @@ export interface SourceType {
 export default class Sources {
     public draw(data: ReadonlyArray<SourceType>): void {
         const fragment = document.createDocumentFragment();
-        const sourceItemTemp = document.querySelector<HTMLTemplateElement>('#sourceItemTemp');
+        const sourceItemTemp = document.querySelector('#sourceItemTemp');
 
-        if (!sourceItemTemp) {
-            console.error('Template element #sourceItemTemp not found');
+        if (!(sourceItemTemp instanceof HTMLTemplateElement)) {
+            console.error('Template element #sourceItemTemp not found or not a HTMLTemplateElement');
             return;
         }
 
-        data.forEach((item: Source) => {
-            const sourceClone = sourceItemTemp.content.cloneNode(true) as DocumentFragment;
+        data.forEach((item: SourceType) => {
+            const sourceClone = sourceItemTemp.content.cloneNode(true);
+            if (!(sourceClone instanceof DocumentFragment)) return;
+
             const sourceItemName = sourceClone.querySelector('.source__item-name');
             const sourceItem = sourceClone.querySelector('.source__item');
 
@@ -25,12 +27,12 @@ export default class Sources {
                 sourceItem.setAttribute('data-source-id', item.id);
             }
 
-            fragment.append(sourceClone);
+            fragment.appendChild(sourceClone);
         });
 
         const sourcesContainer = document.querySelector('.sources');
         if (sourcesContainer) {
-            sourcesContainer.append(fragment);
+            sourcesContainer.appendChild(fragment);
         } else {
             console.error('Container .sources not found');
         }
