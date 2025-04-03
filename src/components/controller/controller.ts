@@ -1,12 +1,30 @@
 import AppLoader from './appLoader';
-import { Endpoints, NewsResponse, LoaderOptions, SourcesResponse } from '../../types';
+
+
+export type NewsResponseType = {
+    articles: ReadonlyArray<NewsItem>;
+};
+
+export type SourcesResponseType = {
+    sources: ReadonlyArray<Source>;
+};
+
+export enum Endpoints {
+    Sources = 'sources',
+    Everything = 'everything',
+    TopHeadlines = 'top-headlines',
+}
+
+export interface LoaderOptions {
+    [key: string]: string;
+}
 
 export default class AppController extends AppLoader {
-    public getSources(callback: (data: SourcesResponse) => void): void {
+    public getSources(callback: (data: SourcesResponseType) => void): void {
         this.getResp({ endpoint: Endpoints.Sources }, callback);
     }
 
-    public getNews(e: Event, callback: (data: NewsResponse) => void): void {
+    public getNews(e: Event, callback: (data: NewsResponseType) => void): void {
         const targetRaw = e.target;
         const containerRaw = e.currentTarget;
 
