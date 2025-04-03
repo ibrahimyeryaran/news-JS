@@ -1,8 +1,17 @@
-import { NewsItem } from '../../../types';
 import './news.css';
 
+export interface NewsItemType {
+    source: { name: string };
+    author?: string;
+    title: string;
+    description: string;
+    url: string;
+    urlToImage?: string;
+    publishedAt: string;
+}
+
 export default class News {
-    public draw(data: ReadonlyArray<NewsItem>): void {
+    public draw(data: ReadonlyArray<NewsItemType>): void {
         const news = data.length >= 10 ? data.slice(0, 10) : data;
         const fragment = document.createDocumentFragment();
         const newsItemTemp = document.querySelector<HTMLTemplateElement>('#newsItemTemp');
@@ -12,7 +21,7 @@ export default class News {
             return;
         }
 
-        news.forEach((item: NewsItem, idx: number) => {
+        news.forEach((item: NewsItemType, idx: number) => {
             const newsClone = newsItemTemp.content.cloneNode(true) as DocumentFragment;
 
             const newsItem = newsClone.querySelector('.news__item');
