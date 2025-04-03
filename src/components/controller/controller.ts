@@ -7,8 +7,15 @@ export default class AppController extends AppLoader {
     }
 
     public getNews(e: Event, callback: (data: NewsResponse) => void): void {
-        let target = e.target as HTMLElement;
-        const newsContainer = e.currentTarget as HTMLElement;
+        const targetRaw = e.target;
+        const containerRaw = e.currentTarget;
+
+        if (!(targetRaw instanceof HTMLElement) || !(containerRaw instanceof HTMLElement)) {
+            return;
+        }
+
+        let target: HTMLElement | null = targetRaw;
+        const newsContainer: HTMLElement = containerRaw;
 
         while (target !== newsContainer && target !== null) {
             if (target.classList.contains('source__item')) {
@@ -31,11 +38,16 @@ export default class AppController extends AppLoader {
                     if (country) options.country = country;
                     if (category) options.category = category;
 
-                    this.getResp<NewsResponse>({ endpoint: endpointAttr as Endpoints, options }, callback);
+                    // endpointAttr string döndüğü için enum'a açıkça eşleştiriyoruz (as kullanmadan)
+                    const endpoint = Object.values(Endpoints).includes(endpointAttr as Endpoints)
+                        ? endpointAttr as Endpoints
+                        : Endpoints.Everything;
+
+                    this.getResp<NewsResponse>({ endpoint, options }, callback);
                 }
                 return;
             }
-            target = target.parentNode as HTMLElement;
+            target = target.parentElement;
         }
     }
 }
