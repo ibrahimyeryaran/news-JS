@@ -1,6 +1,14 @@
 import News from './news/news';
 import Sources from './sources/sources';
-import { NewsResponse, SourcesResponse } from '../../types';
+
+
+export type NewsResponseType = {
+    articles: ReadonlyArray<NewsItem>;
+};
+
+export type SourcesResponseType = {
+    sources: ReadonlyArray<Source>;
+};
 
 export default class AppView {
     private news: News;
@@ -11,12 +19,12 @@ export default class AppView {
         this.sources = new Sources();
     }
 
-    public drawNews(data: NewsResponse): void {
+    public drawNews(data: NewsResponseType): void {
         const articles: ReadonlyArray<(typeof data.articles)[number]> = data.articles;
         this.news.draw(articles);
     }
 
-    public drawSources(data: SourcesResponse): void {
+    public drawSources(data: SourcesResponseType): void {
         const sources: ReadonlyArray<(typeof data.sources)[number]> = data.sources;
         this.sources.draw(sources);
     }
